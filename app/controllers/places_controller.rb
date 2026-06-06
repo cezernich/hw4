@@ -15,9 +15,17 @@ class PlacesController < ApplicationController
   end
 
   def new
+    if @current_user == nil
+      redirect_to "/login"
+    end
   end
 
   def create
+    if @current_user == nil
+      redirect_to "/login"
+      return
+    end
+
     @place = Place.new
     @place["name"] = params["name"]
     @place.save
